@@ -54,7 +54,7 @@ if (contactForm) {
         const message = document.getElementById('message').value;
         
         // Ihre E-Mail-Adresse hier eintragen
-        const yourEmail = 'info@fabian-horni-massage.de';
+        const yourEmail = 'med.massagen.f.horni@gmx.ch';
         
         // Create email content
         const subject = `Kontaktanfrage von ${name}`;
@@ -99,39 +99,48 @@ document.querySelectorAll('.gallery-item').forEach(item => {
 });
 
 // Simple image lightbox for gallery (optional enhancement)
-document.querySelectorAll('.gallery-item img').forEach(img => {
-    img.addEventListener('click', () => {
-        // Create lightbox overlay
-        const lightbox = document.createElement('div');
-        lightbox.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            cursor: pointer;
-        `;
-        
-        const lightboxImg = document.createElement('img');
-        lightboxImg.src = img.src;
-        lightboxImg.style.cssText = `
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 10px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-        `;
-        
-        lightbox.appendChild(lightboxImg);
-        document.body.appendChild(lightbox);
-        
-        // Close lightbox on click
-        lightbox.addEventListener('click', () => {
-            document.body.removeChild(lightbox);
-        });
-    });
+const galleryImages = [
+    'assets/FabianMassageBein.jpg',
+    'assets/FabianMassageFuss.jpg',
+    'assets/FabianMassageRuecken.jpg'
+];
+
+let currentImageIndex = 0;
+
+function openLightbox(index) {
+    currentImageIndex = index;
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    
+    lightboxImg.src = galleryImages[currentImageIndex];
+    lightbox.classList.add('active');
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('active');
+}
+
+function changeImage(direction) {
+    currentImageIndex += direction;
+    
+    if (currentImageIndex >= galleryImages.length) {
+        currentImageIndex = 0;
+    } else if (currentImageIndex < 0) {
+        currentImageIndex = galleryImages.length - 1;
+    }
+    
+    const lightboxImg = document.getElementById('lightbox-img');
+    lightboxImg.src = galleryImages[currentImageIndex];
+}
+
+// Close lightbox with Escape key and arrow keys for navigation
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeLightbox();
+    } else if (e.key === 'ArrowLeft') {
+        changeImage(-1);
+    } else if (e.key === 'ArrowRight') {
+        changeImage(1);
+    }
 });

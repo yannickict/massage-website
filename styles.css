@@ -5,10 +5,10 @@
 }
 
 :root {
-  --primary-color: #8b7355;
-  --secondary-color: #d4af37;
-  --dark-color: #2c2416;
-  --light-color: #f5f1ed;
+  --primary-color: #1c5ead;
+  --secondary-color: #0d3d73;
+  --dark-color: #0a2744;
+  --light-color: #e8f1fa;
   --text-color: #333;
   --white: #ffffff;
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -89,13 +89,25 @@ body {
 .hero {
   background: linear-gradient(
     135deg,
-    var(--primary-color) 0%,
-    var(--dark-color) 100%
+    rgba(28, 94, 173, 0.95) 0%,
+    rgba(10, 39, 68, 0.95) 100%
   );
   color: var(--white);
   padding: 150px 20px 100px;
   text-align: center;
   margin-top: 70px;
+}
+
+.hero-logo {
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.8s ease;
+}
+
+.hero-logo img {
+  height: 200px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
 }
 
 .hero-content h1 {
@@ -123,12 +135,12 @@ body {
 }
 
 .btn-primary {
-  background-color: var(--secondary-color);
-  color: var(--dark-color);
+  background-color: var(--white);
+  color: var(--primary-color);
 }
 
 .btn-primary:hover {
-  background-color: var(--white);
+  background-color: var(--light-color);
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
@@ -157,59 +169,37 @@ section {
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   margin-top: 3rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .service-card {
   background: var(--white);
   border-radius: 10px;
-  overflow: hidden;
+  padding: 2rem;
   box-shadow: var(--shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  will-change: transform;
 }
 
 .service-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.service-image {
-  width: 100%;
-  height: 250px;
-  overflow: hidden;
-}
-
-.service-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-  display: block;
-}
-
-.service-card:hover .service-image img {
-  transform: scale(1.1);
-}
-
 .service-card h3 {
-  padding: 1.5rem 1.5rem 0.5rem;
   color: var(--primary-color);
   font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .service-card p {
-  padding: 0 1.5rem 1rem;
   color: var(--text-color);
-}
-
-.service-card .price {
-  font-weight: bold;
-  color: var(--secondary-color);
-  font-size: 1.3rem;
-  padding-bottom: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 0;
 }
 
 .about {
@@ -217,24 +207,8 @@ section {
 }
 
 .about-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-  margin-top: 3rem;
-}
-
-.about-image img {
-  width: 100%;
-  border-radius: 10px;
-  box-shadow: var(--shadow);
-  display: block;
-}
-
-.about-text h2 {
-  color: var(--primary-color);
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
+  max-width: 900px;
+  margin: 3rem auto 0;
 }
 
 .about-text p {
@@ -294,6 +268,73 @@ section {
 
 .gallery-item:hover img {
   transform: scale(1.1);
+}
+
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  cursor: pointer;
+}
+
+.lightbox.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-content {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  cursor: default;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  color: var(--white);
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.lightbox-close:hover {
+  color: var(--light-color);
+}
+
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--white);
+  font-size: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 20px;
+  user-select: none;
+  transition: color 0.3s;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  color: var(--light-color);
+}
+
+.lightbox-prev {
+  left: 20px;
+}
+
+.lightbox-next {
+  right: 20px;
 }
 
 .contact {
@@ -379,7 +420,7 @@ section {
 }
 
 .footer-nav a:hover {
-  color: var(--secondary-color);
+  color: var(--light-color);
 }
 
 .footer-bottom {
